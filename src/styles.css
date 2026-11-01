@@ -1,0 +1,185 @@
+:root {
+  --bg: #08070a;
+  --bg-2: #0d0c11;
+  --ink: #f4f1ea;
+  --muted: #9a968c;
+  --gold: #d8b25a;
+  --gold-2: #f0d48a;
+  --line: rgba(216, 178, 90, 0.22);
+  --display: 'Bebas Neue', 'Anton', sans-serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Lenis drives smooth scrolling — native smooth-scroll would fight it */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow-x: hidden; /* fallback */
+  overflow-x: clip; /* clip, not hidden: keeps the hero's sticky stage working */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Scrollbar hidden but scrolling still works */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Chrome/Safari/Opera */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.section {
+  position: relative;
+  padding: clamp(60px, 9vw, 130px) clamp(20px, 6vw, 90px);
+}
+
+.eyebrow {
+  font-family: var(--sans);
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.4s ease;
+}
+.btn span {
+  position: relative;
+  z-index: 2;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: translateY(101%);
+  transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
+  z-index: 1;
+}
+.btn:hover::before {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.btn-ghost::before {
+  background: var(--gold);
+}
+.btn-ghost:hover {
+  color: var(--bg);
+}
+
+/* Grain overlay for cinematic texture */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* static: an animated full-screen layer repaints every frame and
+     competes with the hero's video scrub */
+}
+
+.reveal-line {
+  display: block;
+  overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 64px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

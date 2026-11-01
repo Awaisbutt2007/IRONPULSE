@@ -1,0 +1,9 @@
+{
+  "rewrites": [{ "source": "/((?!assets/|hero-frames/).*)", "destination": "/index.html" }],
+  "headers": [
+    {
+      "source": "/hero-frames/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+node_modules
+dist
+.vercel
+.env*
+*.log
+# 37 MB 4K source footage — the site uses the extracted frames in public/hero-frames
+*.mp4
